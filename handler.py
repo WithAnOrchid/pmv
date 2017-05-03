@@ -134,35 +134,36 @@ def respond(err, res=None):
 # Entry point of AWS lambda
 def handler(event, context):
     print(json.dumps(event))
-    if (event['queryStringParameters'] != '' and
-        event['queryStringParameters']['ta'] != '' and
-        event['queryStringParameters']['rh'] != ''):
+    # TODO
+    if ('queryStringParameters' in event and
+        'ta' in event['queryStringParameters'] and
+        'rh' in event['queryStringParameters']):
         # We have enough info
-        TA = event['queryStringParameters']['ta']
-        RH = event['queryStringParameters']['rh']
+        TA = float(event['queryStringParameters']['ta'])
+        RH = float(event['queryStringParameters']['rh'])
         # Check if we have more info
-        if (event['queryStringParameters']['clo'] != ''):
-            CLO = event['queryStringParameters']['clo']
+        if ('clo' in event['queryStringParameters']):
+            CLO = float(event['queryStringParameters']['clo'])
         else:
             CLO = decideCLO()
-        if (event['queryStringParameters']['met'] != ''):
-            MET = event['queryStringParameters']['met']
+        if ('met' in event['queryStringParameters']):
+            MET = float(event['queryStringParameters']['met'])
         else:
             MET = 1.2
-        if (event['queryStringParameters']['wme'] != ''):
-            WME = event['queryStringParameters']['wme']
+        if ('wme' in event['queryStringParameters']):
+            WME = float(event['queryStringParameters']['wme'])
         else:
             WME = 0.0
-        if (event['queryStringParameters']['tr'] != ''):
-            TR = event['queryStringParameters']['tr']
+        if ('tr' in event['queryStringParameters']):
+            TR = float(event['queryStringParameters']['tr'])
         else:
             TR = TA
-        if (event['queryStringParameters']['vel'] != ''):
-            VEL = event['queryStringParameters']['vel']
+        if ('vel' in event['queryStringParameters']):
+            VEL = float(event['queryStringParameters']['vel'])
         else:
             VEL = randint(7, 12) / 100.0
-        if (event['queryStringParameters']['pa'] != ''):
-            PA = event['queryStringParameters']['pa']
+        if ('pa' in event['queryStringParameters']):
+            PA = float(event['queryStringParameters']['pa'])
         else:
             PA = 0
 
@@ -178,5 +179,4 @@ def handler(event, context):
 
     else:
         # no
-        raise respond(ValueError('Unsupported parameters'))
-
+        respond(ValueError('Unsupported parameters'))
