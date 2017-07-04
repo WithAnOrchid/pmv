@@ -3,7 +3,7 @@ service: pmv
 provider:
   name: aws
   runtime: python2.7
-  region: us-east-1
+  region: ap-southeast-1
   stage: dev
   memorySize: 1536
   timeout: 300
